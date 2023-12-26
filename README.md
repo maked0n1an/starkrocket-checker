@@ -4,10 +4,6 @@
 
 git clone https://github.com/maked0n1an/starkrocket-checker.git
 
-cd starknet
-
-pip install -r requirements.txt
-
 python main.py
 
 1) Все основные настройки производятся в файле settings.py
