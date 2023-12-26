@@ -3,6 +3,7 @@ import aiohttp
 
 from data.wallet import Wallet
 
+total_point = 0
 
 class Checker(Wallet):
     def __init__(self, order_number: int, wallet: str, proxy=None):
@@ -40,16 +41,16 @@ class Checker(Wallet):
             self.format_display(f"An error occured: {e}")
             
         return self.order_number, self.address, 0
-      
+        
     async def _get_json(self, response: aiohttp.ClientSession) -> (str, int):
         try:    
             drop = await response.json()
             points = drop['result']['points']
             self.format_display(f"{points}")
-            
+
             return self.address, points
         except json.JSONDecodeError:
             self.format_display("Cannot unpacked JSON, problem with connection etc.")
             
-            return self.order_number, self.address, 0
+            return self.address, 0
 

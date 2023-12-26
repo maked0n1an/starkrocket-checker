@@ -4,6 +4,7 @@ import random
 from data.checker import Checker
 from data.writer import Writer
 from utils.config import WALLETS, PROXIES
+from utils.helpers import format_output
 from settings import RANDOM_WALLETS
 
 def zip_to_table():
@@ -12,9 +13,6 @@ def zip_to_table():
     }
     
     return wallet_dict
-
-def format_output(message: str):
-    print(f"{message:^80}")
 
 def greetings():
     brand_label = "========== M A K E D 0 N 1 A N =========="
@@ -35,6 +33,7 @@ async def main():
         tuples = dict(items)   
             
     tasks = []
+    total_points = 0    
     
     for i, (wallet, proxy) in enumerate(tuples.items(), 1):
         checker = Checker(i, wallet, proxy)
@@ -44,8 +43,10 @@ async def main():
     
     for i, (wallet, drop) in enumerate(result, 1):
         writer = Writer(i, wallet)
+        total_points+=drop
         await writer.write_to_csv(drop)
-
+        
+    Writer.write_total_result(total_points)
 
 if __name__ == "__main__":
     asyncio.run(main())

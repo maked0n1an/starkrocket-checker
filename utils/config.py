@@ -1,4 +1,4 @@
-from utils.reader import read_txt
+from utils.helpers import read_txt
 
 
 WALLETS = read_txt("input_data/wallets.txt")
