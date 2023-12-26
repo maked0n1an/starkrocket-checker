@@ -5,7 +5,6 @@ from data.checker import Checker
 from data.writer import Writer
 from utils.config import WALLETS, PROXIES
 from utils.helpers import format_output
-from settings import RANDOM_WALLETS
 
 def zip_to_table():
     wallet_dict = {
@@ -26,12 +25,7 @@ async def main():
     greetings()
     
     tuples = zip_to_table()
-        
-    if RANDOM_WALLETS:
-        items = list(tuples.items())
-        random.shuffle(items)
-        tuples = dict(items)   
-            
+                    
     tasks = []
     total_points = 0    
     
