@@ -4,27 +4,28 @@ import random
 from data.checker import Checker
 from data.writer import Writer
 from utils.config import WALLETS, PROXIES
-from settings import RANDOM_WALLETS, USE_PROXIES
+from settings import RANDOM_WALLETS
 
 def zip_to_table():
-    wallet_dict = { 
-        index: wallet for wallet, index in enumerate(WALLETS)
+    wallet_dict = {
+        pair: proxy for pair, proxy in zip(WALLETS, PROXIES * len(WALLETS))
     }
-    
-    if USE_PROXIES:           
-        # wallet_dict = { 
-        #     str(key): proxy for (_, key), proxy in zip(wallet_dict.items(), PROXIES * len(WALLETS)) 
-        # }
-        
-        wallet_dict = {
-            pair: proxy for pair, proxy in zip(WALLETS, PROXIES * len(WALLETS))
-        }
     
     return wallet_dict
 
+def format_output(message: str):
+    print(f"{message:^80}")
+
+def greetings():
+    brand_label = "========== M A K E D 0 N 1 A N =========="
+    name_label = "========= StarkRocket Checker ========="
+    
+    print("")
+    format_output(brand_label)
+    format_output(name_label)
+
 async def main():
-    print("===========")
-    print("===START===")
+    greetings()
     
     tuples = zip_to_table()
         
@@ -48,4 +49,6 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-    print("It's all!")
+    
+    exit_label = "========= It's all! ========="
+    format_output(exit_label)

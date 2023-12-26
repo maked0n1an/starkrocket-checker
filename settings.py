@@ -1,2 +1,1 @@
-USE_PROXIES = True
 RANDOM_WALLETS = True
